@@ -60,18 +60,19 @@ class Conta:
 class ContaIterador:
     def __init__(self, contas):
         self.contas = contas
-        self.contador = 0
+        self._contador = 0
 
     def __iter__(self):
         return self
 
     def __next__(self):
         try:
-            conta = self.contas[self.contador]
-            self.contador += 1
+            conta = self.contas[self._contador]
             return conta
         except IndexError:
             raise StopIteration
+        finally:
+            self._contador += 1
 
 class ContaCorrente(Conta):
     def __init__(self, numero, cliente, limite=500, limite_saques=3):
@@ -223,8 +224,9 @@ def recuperar_conta_cliente(cliente):
 # função decoradora
 def log_transacao(func):
     def envelope(*args, **kwargs):
-        func(*args)
-        print(func.__name__, datetime.now())
+        resultado = func(*args)
+        print(f"{datetime.now()}: {func.__name__}")
+        return resultado
     
     return envelope
 
