@@ -1,7 +1,9 @@
 import os
 
+
 def clear_console():
     os.system("cls")
+
 
 # positional only arguments
 def deposit(balance, value, statement, /):
@@ -16,6 +18,7 @@ def deposit(balance, value, statement, /):
     input("Digite qualquer tecla para continuar...")
 
     return balance, statement
+
 
 # keyword only arguments
 def withdrawal(*, balance, value, statement, number_of_withdrawals, withdrawal_limit):
@@ -34,10 +37,11 @@ def withdrawal(*, balance, value, statement, number_of_withdrawals, withdrawal_l
             print("Saldo insuficiente para a operação.")
         else:
             print("Operação abortada! O valor do saque é inválido.")
-    
+
     input("Digite qualquer tecla para continuar...")
 
     return balance, statement
+
 
 # positional and keyword arguments
 def show_statement(balance, /, *, statement):
@@ -50,6 +54,7 @@ def show_statement(balance, /, *, statement):
     print("=============================\n")
 
     input("Digite qualquer tecla para continuar...")
+
 
 def create_user(users):
 
@@ -72,11 +77,13 @@ def create_user(users):
 
     return users
 
+
 def get_user_by_cpf(users, cpf):
 
     user = [user for user in users if user["cpf"] == cpf]
 
     return user[0] if user else None
+
 
 def create_checking_account(branch, checking_accounts: list, users):
 
@@ -90,10 +97,11 @@ def create_checking_account(branch, checking_accounts: list, users):
         print("Conta criada com sucesso!")
 
         return account
-    
+
     print("A conta não foi criada: usuário não encontrado!")
 
     return None
+
 
 def list_accounts(accounts):
     for acc in accounts:
@@ -105,6 +113,7 @@ def list_accounts(accounts):
             =======================
         """
         print(result)
+
 
 def menu():
     menu = """
@@ -121,6 +130,7 @@ def menu():
     """
 
     return input(menu)
+
 
 def main():
 
@@ -146,7 +156,13 @@ def main():
         elif option == "s":
             try:
                 value = float(input("Quanto deseja sacar? "))
-                balance, statement = withdrawal(balance=balance, value=value, statement=statement, number_of_withdrawals=number_of_withdrawals, withdrawal_limit=WITHDRAWAL_LIMIT)
+                balance, statement = withdrawal(
+                    balance=balance,
+                    value=value,
+                    statement=statement,
+                    number_of_withdrawals=number_of_withdrawals,
+                    withdrawal_limit=WITHDRAWAL_LIMIT,
+                )
             except ValueError:
                 print("Insira um valor numérico válido!")
         elif option == "e":
@@ -167,6 +183,7 @@ def main():
             break
         else:
             print("Operação inválida!")
+
 
 if __name__ == "__main__":
     main()
